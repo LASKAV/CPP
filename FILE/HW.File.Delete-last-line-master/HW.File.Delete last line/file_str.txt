@@ -1,0 +1,1 @@
+Bot instances that were idle for a long time might be rejected by the server when sending
