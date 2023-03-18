@@ -1,35 +1,13 @@
 #include <iostream>
 
-class WashingMachineFacade {
+class WashingMachine {
 public:
-    void start() {
-        powerOn();
-        selectProgram();
-        addDetergent();
-        startWashing();
-    }
-
-    void showMenu() {
-        std::cout << "Меню стиральной машины:" << std::endl;
-        std::cout << "1. Быстрая стирка" << std::endl;
-        std::cout << "2. Стирка хлопка" << std::endl;
-        std::cout << "3. Стирка шерсти" << std::endl;
-        std::cout << "4. Отложенный старт" << std::endl;
-        std::cout << "Выберите программу стирки (1-4): ";
-        std::cin >> program_;
-        std::cout << std::endl;
-    }
-
-private:
-    int program_;
-
     void powerOn() {
         std::cout << "Включаем стиральную машину" << std::endl;
     }
 
-    void selectProgram() {
-        showMenu();
-        switch (program_) {
+    void selectProgram(int program) {
+        switch (program) {
         case 1:
             std::cout << "Выбрана быстрая стирка" << std::endl;
             break;
@@ -57,8 +35,31 @@ private:
     }
 };
 
+class WashingMachineFacade {
+public:
+    void start(int program) {
+        washingMachine_.powerOn();
+        washingMachine_.selectProgram(program);
+        washingMachine_.addDetergent();
+        washingMachine_.startWashing();
+    }
+
+private:
+    WashingMachine washingMachine_;
+};
+
 int main() {
     WashingMachineFacade facade;
-    facade.start();
+    std::cout << "Меню стиральной машины:" << std::endl;
+    std::cout << "1. Быстрая стирка" << std::endl;
+    std::cout << "2. Стирка хлопка" << std::endl;
+    std::cout << "3. Стирка шерсти" << std::endl;
+    std::cout << "4. Отложенный старт" << std::endl;
+    std::cout << "Выберите программу стирки (1-4): ";
+    int program;
+    std::cin >> program;
+    std::cout << std::endl;
+    facade.start(program);
     return 0;
 }
+
